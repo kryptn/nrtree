@@ -51,7 +51,7 @@ def merge_nodes_and_relationships(tx: Transaction, nodes: List[Node], relationsh
         tx.merge(rel)
 
 
-def top_10_and_insert(graph: Graph, subreddit_name: str):
+def top_ten_and_insert(graph: Graph, subreddit_name: str):
     nodes = []
     relationships = []
     for sub in top_ten(subreddit_name):
