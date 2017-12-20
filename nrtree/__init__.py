@@ -1,5 +1,3 @@
-
-
 class Settings:
     reddit_secret = 'reddit secret'
     reddit_id = 'reddit id'
@@ -8,4 +6,3 @@ class Settings:
     praw_auth = {'client_secret': reddit_secret,
                  'client_id': reddit_id,
                  'user_agent': user_agent}
-

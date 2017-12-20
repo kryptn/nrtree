@@ -1,12 +1,12 @@
-from py2neo import Graph, Node, Relationship
-from py2neo.ogm import GraphObject, Property, RelatedFrom, RelatedTo, Label
-
-from praw import models
+from py2neo import Node, Relationship
 
 DELETED = '[deleted]'
 REMOVED = '[removed]'
 
+
 class ChildOf(Relationship): pass
+
+
 class AuthoredBy(Relationship): pass
 
 
@@ -15,6 +15,7 @@ class Thing(Node):
         if 'Thing' not in labels:
             labels = (*labels, 'Thing')
         super().__init__(*labels, **properties)
+
 
 class Comment(Thing):
     def __init__(self, comment):
@@ -26,6 +27,7 @@ class Comment(Thing):
         }
         super().__init__(*labels, **properties)
 
+
 class Submission(Thing):
     def __init__(self, submission):
         labels = ('Submission',)
@@ -35,6 +37,7 @@ class Submission(Thing):
             'author': author,
         }
         super().__init__(*labels, **properties)
+
 
 class Redditor(Thing):
     def __init__(self, redditor):
@@ -46,11 +49,6 @@ class Redditor(Thing):
         super().__init__(*labels, **properties)
 
 
-
-
-
-
-
-
-if __name__ == '__main__':
-    graph = Graph()
+def dump_all(graph):
+    graph.run('match (n) detach delete n')
+    graph.run('create index on :Thing(id)')
