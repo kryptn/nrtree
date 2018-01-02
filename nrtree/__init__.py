@@ -9,6 +9,9 @@ class Settings:
     reddit_id = 'reddit id'
     user_agent = ' the user agent v0.1'
 
+    external_host = None
+    external_port = None
+
     # app settings
     host = '0.0.0.0'
     port = 8080
@@ -31,8 +34,8 @@ class Settings:
     }
 
     yarl = {
-        'host': host,
-        'port': port,
+        'host': external_host or host,
+        'port': external_port if external_host else port,
         'scheme': 'http'
     }
 
