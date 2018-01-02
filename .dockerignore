@@ -2,3 +2,4 @@ infra/*
 *.pyc
 docker-compose.yml
 env/*
+env.yml
