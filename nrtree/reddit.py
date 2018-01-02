@@ -15,6 +15,15 @@ reddit = praw.Reddit(**Settings.praw_auth)
 def top_ten(subreddit_name: str) -> Iterable[models.Submission]:
     return reddit.subreddit(subreddit_name).hot(limit=10)
 
+def comment_stream(subreddit_name: str):
+    for comment in reddit.subreddit(subreddit_name).stream.comments(): # type: models.Comment
+        submission = comment.submission
+        parent = comment.parent()
+        print(f"""in post {submission.title}
+        {f'in reply to {parent.body}' if isinstance(parent, models.Comment) else ''}
+            {comment.body}""")
+
+
 
 def itercomments(comments: models.comment_forest) -> Iterable[models.Comment]:
     # turns a comment forest into a generator that expands MoreComments

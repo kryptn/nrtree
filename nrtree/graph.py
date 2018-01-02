@@ -1,6 +1,8 @@
 from praw import models
 from py2neo import Node, Relationship, Graph
 
+from nrtree import Settings
+
 DELETED = '[deleted]'
 REMOVED = '[removed]'
 
@@ -71,8 +73,14 @@ class Redditor(Thing):
 
 def dump_all(graph):
     graph.run('match (n) detach delete n')
+
+def init_things(graph):
+    graph.run('create constraint on (t:Thing) assert t.id is unique')
     graph.run('create index on :Thing(id)')
+
+def make_graph_with_creds():
+    return Graph(**Settings.neo4j)
 
 
 async def init_graph(app):
-    app.graph = Graph()
+    app.graph = make_graph_with_creds()
