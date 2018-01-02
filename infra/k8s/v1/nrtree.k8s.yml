@@ -6,7 +6,7 @@ metadata:
   labels:
     app: nrtree
 spec:
-  replicas: 5
+  replicas: 10
   selector:
     matchLabels:
       app: nrtree
@@ -24,6 +24,13 @@ spec:
             readOnly: true
           ports:
           - containerPort: 8080
+          livenessProbe:
+            httpGet:
+            path: /health
+            port: 8080
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
+
       volumes:
       - name: secrets
         secret:
