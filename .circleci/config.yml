@@ -38,7 +38,7 @@ deploy: &deploy
       then
         gcloud components install kubectl
         gcloud config set project $MIRIS_GCP_PROJECT
-        gcloud config set compute/zone us-west1-a
+        gcloud config set compute/zone us-central1-a
         gcloud container clusters get-credentials miris
         find ./infra -type f -exec sed -i -e "s|##version##|0.1.$CIRCLE_SHA1|g" {} \;
         find ./infra -type f -exec sed -i -e "s|##project##|$MIRIS_GCP_PROJECT|g" {} \;
@@ -82,4 +82,4 @@ workflows:
       - deploy:
           requires:
             - build-backend
-context: org-global
+          context: org-global
