@@ -85,4 +85,7 @@ class SubredditView(ThingView):
 
 
 async def health(request: web.Request) -> web.Response:
-    return json_response({'healthy': True, 'node': platform.node()})
+    count = request.app.graph.run("match (n:Thing) return count(n) as node_count").data()
+    check = {'healthy': True, 'node': platform.node()}
+    check.update(count)
+    return json_response(check)
