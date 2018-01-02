@@ -79,7 +79,7 @@ workflows:
           requires:
             - setup
           context: org-global
-      #- deploy:
-      #    requires:
-      #      - build-backend
+      - deploy:
+          requires:
+            - build-backend
 context: org-global

@@ -18,8 +18,16 @@ spec:
       containers:
         - name: nrtree
           image: gcr.io/##project##/miris/nrtree:##version##
+          volumeMounts:
+          - name: secrets
+            mountPath: "/data"
+            readOnly: true
           ports:
           - containerPort: 8080
+      volumes:
+      - name: secrets
+        secret:
+          secretName: miris-nrtree-secret
 ---
 apiVersion: v1
 kind: Service
